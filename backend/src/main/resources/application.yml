@@ -27,13 +27,21 @@ server:
   servlet:
     context-path: /
 
-logging:
-  level:
-    root: INFO
-    com.example.pos: DEBUG
+# JWT Configuration (configured via environment or @Value defaults)
+# The JwtService constructor already specifies defaults, so these
+# properties are no longer needed here. If you wish to override values
+# at runtime, set the corresponding environment variables or pass them
+# as command-line properties (e.g. --JWT_SECRET=...).
+#
+#JWT_SECRET: ${JWT_SECRET:replace-with-secure-secret-key-at-least-32-chars}
+#ACCESS_TOKEN_EXPIRY_SECONDS: ${ACCESS_TOKEN_EXPIRY_SECONDS:900}
+#REFRESH_TOKEN_EXPIRY_DAYS: ${REFRESH_TOKEN_EXPIRY_DAYS:30}
 
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-  api-docs:
-    path: /v3/api-docs
+# CORS Configuration
+# The front-end origin can be supplied via environment variable or command-
+# line property.  We avoid defining it here with a self-referential placeholder
+# because Spring's resolver treats that as a circular reference (see earlier
+# startup failures). To override, set FRONTEND_ORIGIN in the shell or pass
+# --FRONTEND_ORIGIN=...
+#FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:http://localhost:5173}
+
